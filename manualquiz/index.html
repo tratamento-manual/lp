@@ -1,0 +1,416 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Quiz Interativo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-664873255">
+</script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'AW-664873255');
+</script>
+    <!-- Event snippet for Google Shopping App Purchase conversion page
+In your html page, add the snippet and call gtag_report_conversion when someone clicks on the chosen link or button. -->
+<script>
+function gtag_report_conversion(url) {
+  var callback = function () {
+    if (typeof(url) != 'undefined') {
+      window.location = url;
+    }
+  };
+  gtag('event', 'conversion', {
+      'send_to': 'AW-664873255/BQcxCMW87OoZEKfShL0C',
+      'value': 1.0,
+      'currency': 'BRL',
+      'transaction_id': '',
+      'event_callback': callback
+  });
+  return false;
+}
+</script>
+  <style>
+    body{
+      font-family: 'Poppins';
+    }
+    .box {
+      background: linear-gradient(45deg, #F3F5FF, #a2ffd4);
+      box-shadow: 0px 4px 11px #0000002e;
+      border-radius: 10px;
+      border: 1px solid #ffffff;
+      min-height: 55px;
+      cursor: pointer;
+      line-height: 21px;
+      font-size: 17px;
+    }
+    .box2{border: 1px solid #198754;}
+    @keyframes pulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(0, 123, 255, 0.7);
+  }
+  70% {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px 10px rgba(0, 123, 255, 0);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(0, 123, 255, 0);
+  }
+}
+
+.pri{
+        color: #164445;
+    }
+    .pribg{
+        background-color: #164445;
+    }
+    .sec{
+        background-color: #F5F1EE;
+    }
+    .tri{
+        background-color: #ff9898;
+    }
+
+.btn-pulse {
+  background: linear-gradient(323deg, #54ff11, #ffffff);
+    color: #000000;
+    border: 4px solid #fff;
+    width: 90%;
+    border-radius: 19px;
+    padding: 10px 15px;
+    cursor: pointer;
+    animation: pulse 1.5s infinite;
+    transition: background-color 0.3s;
+    display: flex
+;
+    align-items: center;
+}
+.hidden { display: none; }
+
+.btn-pulse:hover {
+  background: linear-gradient(120deg, #54ff11, #ffffff);
+}
+.fade-in {
+  opacity: 0;
+  transform: translateY(-20px);
+  animation: fadeIn 0.5s forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-out {
+  opacity: 1;
+  transform: translateY(0);
+  animation: fadeOut 0.5s forwards;
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+}
+body{
+  background-color: #F5F1EE;
+}
+.imm{
+  background: #f3e2e2;
+    border-radius: 10px;
+    border: 1px solid #fff;
+    height: fit-content;
+    margin: 10px;
+}
+.ip{
+  font-size: 14px;
+}
+.ipp{
+  font-weight: 700;
+  font-size: 15px;
+}
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <section class="row bg-white justify-content-center align-items-center py-2">
+    <div class="col-auto ps-0 text-white lh-1">
+      <img src="logo.png" alt="">
+    </div>
+  </section>
+
+  <!-- Textos introdutórios -->
+  <div id="intro" class="container text-center mt-3">
+    <p class="fs-5 mb-1">Vamos fazer algumas perguntas para te conhecer, <strong>e sugerir o melhor Kit de produtos para você.</strong></p>
+    <p class="lh-1 pb-2 mb-0"><small>O médico receberá seus resultados para acompanhamento do seu tratamento</small></p>
+    <hr class="mb-1">
+  </div>
+
+  <!-- Barra de progresso -->
+  <div id="progress-container" class="container mt-3 hidden"></div>
+
+  <!-- Perguntas e respostas -->
+  <div class="container text-center py-3">
+    <p id="question" class="col box box2 p-2 fw-semibold"></p>
+    <p id="intro2" class="fs-6 mt-1">Selecione apertando em uma das opções abaixo</p>
+    <div data-aos-duration="1000" id="answers" class="col"></div>
+
+    <!-- Botão do WhatsApp -->
+    <div id="whatsapp" class="hidden py-3 justify-content-center">
+      <div class="row flex-column">
+        <div class="col">
+          <div class="card">
+            <div class="card-header">
+              Cápsulas únicas <small>(90 cápsulas, 1 por dia)</small>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Dutasterida (Ou Finasterida) + Minoxidil Oral</h5>
+              <img src="cap.webp" alt="">
+              <p class="card-text">Em uma só dose diária. Sob prescrição.</p>
+              <a class="btn btn-success">R$ 60,50 <span class="text-decoration-line-through">R$ 83,47</span></a>
+            </div>
+          </div>
+        </div>
+        <hr>
+        <h3>Para potencializar seu tratamento</h3>
+        <div class="col">
+          <div class="card">
+            <div class="card-header">
+              Shampoo + Tratamento Antiqueda <small>(500ml de cada, para 3 meses)</small>
+            </div>
+            <div class="card-body">
+              <img src="sh.webp" alt="">
+              <p class="card-text">Estimula o crescimento e reativação dos folículos capilares</p>
+              <a class="btn btn-success">R$ 30,50 <span class="text-decoration-line-through">R$ 49,90</span></a>
+            </div>
+          </div>
+        </div>
+        <div class="col mt-1">
+          <div class="card">
+            <div class="card-header">
+              Biotina <small>(90 cápsulas para 3 meses)</small>
+            </div>
+            <div class="card-body">
+              <img src="bio.webp" alt="">
+              <p class="card-text">Vitamina com ação vital na formação estrutural do cabelo</p>
+              <a class="btn btn-success">R$ 30,50 <span class="text-decoration-line-through">R$ 49,90</span></a>
+            </div>
+          </div>
+        </div>
+        <hr>
+        <div class="row justify-content-between">
+          <div class="col text-start"><h5>Subtotal</h5></div>
+          <div class="col-auto">R$ 121,00</div>
+        </div>
+        <div class="row">
+          <div class="col pe-0 d-flex text-start align-items-center">
+            <div class="imm">
+              <img src="cap.webp" alt="">
+            </div>
+            <p class="ip mb-0">Dutasterida (Ou Finasterida) + Minoxidil Oral</p>
+          </div>
+          <div class="col-auto d-flex align-items-center pri">R$ 60,50</div>
+        </div>
+        <div class="row">
+          <div class="col pe-0 d-flex text-start align-items-center">
+            <div class="imm">
+              <img src="sh.webp" alt="">
+            </div>
+            <p class="ip mb-0">Shampoo + Tratamento Antiqueda</p>
+          </div>
+          <div class="col-auto d-flex align-items-center pri">R$ 30,25</div>
+        </div>
+        <div class="row">
+          <div class="col pe-0 d-flex text-start align-items-center">
+            <div class="imm">
+              <img src="bio.webp" alt="">
+            </div>
+            <p class="ip mb-0">Biotina Vitaminas</p>
+          </div>
+          <div class="col-auto d-flex align-items-center pri">R$ 30,25</div>
+        </div>
+        <div class="row">
+          <div class="col pe-0 d-flex text-start align-items-center">
+            <div class="imm">
+              <img src="gif.svg" alt="">
+            </div>
+            <p class="ip mb-0">Nécessaire (Presente BlackFriday)</p>
+          </div>
+          <div class="col-auto d-flex align-items-center pri">Grátis</div>
+        </div>
+        <div class="row">
+          <div class="col pe-0 ps-4 d-flex align-items-center">
+            <p class="ipp mb-0 pri">HAIR FRIDAY 50% OFF</p>
+          </div>
+          <div class="col-auto d-flex align-items-center text-success">- R$ 60,50</div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col pe-0 ps-4 d-flex align-items-center">
+            <p class="ipp mb-0">Total</p>
+          </div>
+          <div class="col-auto d-flex align-items-center"><strong>R$ 59,99</strong></div>
+        </div>
+        <div class="col d-flex justify-content-center py-5">
+          <a id="whatsapp-link" onclick="gtag_report_conversion(whatsappLink.href)" class="btn btn-success btn-pulse lh-1">
+            <svg class="pe-2" width="29" height="29" viewBox="0 0 29 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g clip-path="url(#clip0_1_204)">
+              <path d="M24.6518 4.21598C23.3225 2.87381 21.7393 1.80978 19.9945 1.08596C18.2496 0.362132 16.3781 -0.00699774 14.4891 0.000100458C6.57394 0.000100458 0.12325 6.44898 0.116 14.366C0.116 16.9017 0.779375 19.3685 2.03181 21.5525L0 29.0001L7.61975 27.0027C9.72676 28.1523 12.0889 28.7537 14.4891 28.7518H14.4964C22.4134 28.7518 28.8623 22.3029 28.8695 14.3787C28.8711 12.4901 28.4991 10.62 27.775 8.87581C27.0508 7.13165 25.9906 5.54798 24.6518 4.21598ZM14.4891 26.3194C12.3489 26.3177 10.2483 25.7419 8.40638 24.6519L7.97138 24.3909L3.451 25.5763L4.65813 21.1665L4.37538 20.7115C3.17878 18.809 2.54592 16.6063 2.55019 14.3587C2.55019 7.7866 7.90975 2.42523 14.4964 2.42523C16.0655 2.42241 17.6197 2.73022 19.0694 3.33092C20.519 3.93161 21.8354 4.8133 22.9426 5.92516C24.0535 7.03287 24.9342 8.34946 25.5339 9.79907C26.1337 11.2487 26.4407 12.8026 26.4371 14.3714C26.4299 20.9671 21.0703 26.3194 14.4891 26.3194ZM21.0413 17.3765C20.6843 17.1971 18.9207 16.3289 18.589 16.2057C18.2591 16.0879 18.0181 16.0262 17.7824 16.3851C17.5414 16.7422 16.8526 17.556 16.646 17.7898C16.4394 18.0309 16.2255 18.058 15.8666 17.8804C15.5096 17.6992 14.3514 17.3222 12.9811 16.0951C11.9118 15.1435 11.1958 13.9654 10.9819 13.6084C10.7753 13.2495 10.962 13.0574 11.1414 12.8779C11.2991 12.7184 11.4985 12.4574 11.6779 12.2508C11.8592 12.0442 11.919 11.8919 12.0368 11.6527C12.1546 11.4098 12.0984 11.2032 12.0096 11.0237C11.919 10.8443 11.2031 9.07348 10.9004 8.35935C10.6104 7.65429 10.3149 7.75216 10.0938 7.7431C9.88719 7.73041 9.64613 7.73041 9.40506 7.73041C9.22304 7.73505 9.04394 7.7772 8.87895 7.85423C8.71397 7.93127 8.56666 8.04152 8.44625 8.1781C8.11638 8.53698 7.19381 9.40516 7.19381 11.176C7.19381 12.9468 8.48069 14.6487 8.66194 14.8898C8.83956 15.1309 11.1886 18.754 14.7936 20.3128C15.6455 20.6844 16.3161 20.9037 16.8399 21.0704C17.7009 21.3459 18.4784 21.3042 19.0983 21.2154C19.7871 21.1103 21.2208 20.3454 21.5234 19.5062C21.8207 18.6652 21.8207 17.9475 21.7301 17.797C21.6413 17.6448 21.4002 17.556 21.0413 17.3765Z" fill="black"/>
+              </g>
+              <defs>
+              <clipPath id="clip0_1_204">
+              <rect width="29" height="29" fill="white"/>
+              </clipPath>
+              </defs>
+              </svg>
+              
+            Finalizar compra pelo Whatsapp
+          </a>
+        </div>
+        <div class="col mt-3">
+          <h4 class="pri">Perguntas Frequentes</h4>
+          <div class="accordion accordion-flush" id="accordionFlushExample">
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                  Como é o tratamento pela MANUAL?
+                </button>
+              </h2>
+              <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body"><p>Nosso tratamento é criado a partir das suas necessidades. Pra começar, você responde algumas perguntas sobre o seu estado capilar atual.</p><p>A partir delas, você vai conversar com um representante MANUAL para te auxiliar com a finalização da sua compra.</p><p>Dessa forma, você vai receber tudo que precisa para começar seu tratamento, e estaremos disponível 24 horas em nosso Whatsapp para tirar qualquer dúvida.</p></div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                  O que fazer se não funcionar?
+                </button>
+              </h2>
+              <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body"><p>Recomendamos seguir a prescrição de 1 Cápsula por dia por 3 meses, esse período de tratamento é essencial para podermos ter uma noção da eficiencia do medicamento em você. Caso o resultado não seja satisfatório, um de nossos médicos pode alterar os medicamentos e produtos.</p></div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                  Como funciona a avaliação médica?
+                </button>
+              </h2>
+              <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+                  <p>Após clicar em “Finalizar compra pelo Whatsapp”, você será direcionado para o Whatsapp de um de nossos representantes que vai analisar as suas respostas do questionário e prosseguir após isso para a finalização da compra.</p>
+                  <p>Em seguida, suas informações serão encaminhadas e iremos aguardar até a confirmação do pagamento, para que prossiga seu atendimento com um Médico credenciado MANUAL.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const quizData = [
+      {
+        question: "Qual desses tipos se parece mais com sua situação capilar atual?",
+        answers: ["Leves entradas", "Entradas e coroa", "Calvice extensa", "Queda total"]
+      },
+      {
+        question: "A sua perda de cabelo tem sido gradual?",
+        answers: ["Sim, aos poucos foi piorando", "Não, aconteceu derrepente, pode ter sido causado por alguma medicação ou doença"]
+      },
+      {
+        question: "Você já fez algum tratamento contínuo para queda capilar por mais de 12 meses?",
+        answers: ["Sim", "Não"]
+      },
+      {
+        question: "O que você busca no seu tratamento para queda capilar?",
+        answers: ["Medicamento mais eficaz possível", "Medicamento mais prescrito", "Medicamento 100% Natural (Porém, menos eficaz)"]
+      }
+    ];
+
+    let currentQuestion = 0;
+    const userResponses = [];
+    const questionElement = document.getElementById("question");
+    const answersElement = document.getElementById("answers");
+    const progressContainer = document.getElementById("progress-container");
+    const intro = document.getElementById("intro");
+    const intro2 = document.getElementById("intro2");
+    const whatsappSection = document.getElementById("whatsapp");
+    const whatsappLink = document.getElementById("whatsapp-link");
+
+    function renderQuestion() {
+  if (currentQuestion < quizData.length) {
+    const { question, answers } = quizData[currentQuestion];
+
+    // Adicionar animação de saída
+    questionElement.classList.add("fade-out");
+    answersElement.classList.add("fade-out");
+
+    setTimeout(() => {
+
+    questionElement.textContent = question;
+    answersElement.innerHTML = answers.map(answer => 
+      `<div class="box fw-semibold lh-1 p-2 mt-2 d-flex justify-content-center align-items-center" onclick="selectAnswer('${answer}')">${answer}</div>`
+    ).join("");
+
+      // Adicionar animação de entrada
+      questionElement.classList.remove("fade-out");
+      questionElement.classList.add("fade-in");
+      answersElement.classList.remove("fade-out");
+      answersElement.classList.add("fade-in");
+
+    if (currentQuestion > 0) {
+      intro.classList.add("hidden");
+      intro2.classList.add("hidden");
+      progressContainer.classList.remove("hidden");
+      const progress = ((currentQuestion / quizData.length) * 100).toFixed(0);
+      progressContainer.innerHTML = `
+        <div class="progress" role="progressbar" aria-label="Info example" aria-valuenow="${progress}" aria-valuemin="0" aria-valuemax="100">
+          <div class="progress-bar bg-success text-white" style="width: ${progress}%">${progress}%</div>
+        </div>`;
+      }
+
+    },500);
+
+  } else {
+    // Mostrar barra de progresso em 100%
+    progressContainer.innerHTML = `
+      <div class="progress" role="progressbar" aria-label="Info example" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+        <div class="progress-bar bg-success text-white" style="width: 100%">100%</div>
+      </div>`;
+      
+    // Exibir mensagem final
+    questionElement.textContent = "Ótimo, aqui está o tratamento adequado para você:";
+    answersElement.classList.add("hidden");
+    // whatsappSection.classList.remove("hidden");
+    whatsappSection.classList.add("d-flex");
+    const message = `Olá! Gostaria de finalizar minha compra. Respostas ao questionário: ${userResponses.join(", ")}`;
+    whatsappLink.href = `https://wa.me/5571991622068?text=${encodeURIComponent(message)}`;
+  }
+}
+
+    function selectAnswer(answer) {
+      userResponses.push(answer);
+      currentQuestion++;
+      renderQuestion();
+    }
+
+    renderQuestion();
+  </script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+      <!-- <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script> -->
+</body>
+</html>
